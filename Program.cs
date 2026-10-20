@@ -1,14 +1,12 @@
 ﻿
-Inventory inv1 = new();
-inv1.addProduct("laptop", 2, 34);
-inv1.addProduct("iphone", 3, 44);
-inv1.addProduct("camera", 2, 34);
-displayAllProducts(inv1);
-Console.WriteLine(inv1.getAllProducts());
+Inventory inventory = new();
+inventory.addProduct("laptop", 2, 34);
+inventory.addProduct("iphone", 3, 44);
+inventory.addProduct("camera", 2, 34);
+displayAllProducts();
 
 
-
-void displayAllProducts(Inventory inventory )
+void DisplayAllProducts()
 {
     var products= inventory.getAllProducts();
     if(!products.Any())
@@ -27,6 +25,9 @@ void displayAllProducts(Inventory inventory )
 
 
 }
+void HandleEditProduct()
+{
 
+}
 Console.WriteLine("Press any key to exit...");
 Console.ReadKey();
