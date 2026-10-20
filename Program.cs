@@ -117,5 +117,23 @@ void HanldeDelete()
 
     }
 }
+void HandleSerach()
+{
+    Console.WriteLine("Enter product name you want to search");
+    string nameInput = Console.ReadLine();
+    if (nameInput.Trim() == null)
+    {
+        Console.WriteLine("empty name!");
+        return;
+    }
+    if (inventory.getProductByName(nameInput) == null)
+    {
+        Console.WriteLine("product with this name not found !");
+        return;
+    }else
+    {
+        Console.WriteLine(inventory.getProductByName(nameInput));
+    }
+}
 Console.WriteLine("Press any key to exit...");
 Console.ReadKey();
