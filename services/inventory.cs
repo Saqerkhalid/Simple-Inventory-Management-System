@@ -19,4 +19,12 @@ public class Inventory
     {
         return Products.AsReadOnly();
     }
+    public Product? getProductByName(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            return null;
+        }
+        return Products.FirstOrDefault(Products => Products.Name.Equals(name.Trim(), StringComparison.OrdinalIgnoreCase));  
+    }
 }
