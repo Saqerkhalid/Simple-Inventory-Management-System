@@ -27,4 +27,27 @@ public class Inventory
         }
         return Products.FirstOrDefault(Products => Products.Name.Equals(name.Trim(), StringComparison.OrdinalIgnoreCase));  
     }
+    public Product? EditProduct(string searchName,string finalName,int finalQuantity,decimal finalPrice)
+    {
+        Product? product = getProductByName(searchName);
+        if (product == null)
+        {
+            return null;
+        }
+        bool isNameChanged = !product.Name.Equals(finalName, StringComparison.OrdinalIgnoreCase);
+        if (isNameChanged)
+        {
+            bool isNameAlreadyTaken = Products.Any(p =>
+                p.Name.Equals(finalName, StringComparison.OrdinalIgnoreCase));
+
+            if (isNameAlreadyTaken)
+            {
+                return null;
+            }
+        }
+        product.Name = finalName;
+        product.Quantity = finalQuantity;
+        product.Price = finalPrice;
+        return product;
+    }
 }
