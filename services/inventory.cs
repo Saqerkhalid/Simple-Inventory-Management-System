@@ -50,4 +50,15 @@ public class Inventory
         product.Price = finalPrice;
         return product;
     }
+    public bool DeleteProduct(string name)
+    {
+        Product? product = getProductByName(name);
+        if (product == null)
+        {
+            return false;
+        }
+        Products.Remove(product);
+        return true;
+
+    }
 }
