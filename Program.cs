@@ -24,42 +24,46 @@ while (isRunning)
 
     Console.WriteLine();
 
-    switch (choice)
+    try
     {
-        case "1":
-            DisplayAllProducts();
-            break;
+        switch (choice)
+        {
+            case "1":
+                DisplayAllProducts();
+                break;
 
-        case "2":
-            HandleAddProduct();
-            break;
+            case "2":
+                HandleAddProduct();
+                break;
 
-        case "3":
-            HandleEditProduct();
-            break;
+            case "3":
+                HandleEditProduct();
+                break;
 
-        case "4":
-            HanldeDelete();
-            break;
+            case "4":
+                HanldeDelete();
+                break;
 
-        case "5":
-            HandleSerach();
-            break;
+            case "5":
+                HandleSerach();
+                break;
 
-        case "0":
-            Console.WriteLine("Exiting program... Goodbye!");
-            isRunning = false;
-            continue;
+            case "0":
+                Console.WriteLine("Exiting program... Goodbye!");
+                isRunning = false;
+                continue;
 
-        default:
-            Console.WriteLine("Invalid choice! Please select a valid number from the menu.");
-            break;
+            default:
+                Console.WriteLine("Invalid choice! Please select a valid number from the menu.");
+                break;
+        }
+        Console.WriteLine("\nPress any key to return to main menu...");
+        Console.ReadKey();
     }
-    Console.WriteLine("\nPress any key to return to main menu...");
-    Console.ReadKey();
-}
+    catch (Exception e) { Console.WriteLine(e.ToString()); }
+    }
 
-    void DisplayAllProducts()
+void DisplayAllProducts()
 {
     var products= inventory.getAllProducts();
     if(!products.Any())
@@ -77,6 +81,47 @@ while (isRunning)
 
 
 
+}
+void HandleAddProduct()
+{
+    Console.WriteLine("--- Add New Product ---\n");
+
+    Console.Write("Enter product name: ");
+    string? name = Console.ReadLine();
+    while (string.IsNullOrWhiteSpace(name))
+    {
+        Console.Write("Name cannot be empty! Enter valid name: ");
+        name = Console.ReadLine();
+    }
+    name = name.Trim();
+
+    Console.Write("Enter quantity: ");
+    string? quantityInput = Console.ReadLine();
+    int quantity;
+    while (!int.TryParse(quantityInput, out quantity) || quantity < 0)
+    {
+        Console.Write("Invalid quantity! Enter a non-negative integer: ");
+        quantityInput = Console.ReadLine();
+    }
+
+    Console.Write("Enter price: ");
+    string? priceInput = Console.ReadLine();
+    decimal price;
+    while (!decimal.TryParse(priceInput, out price) || price < 0)
+    {
+        Console.Write("Invalid price! Enter a positive decimal number: ");
+        priceInput = Console.ReadLine();
+    }
+
+    try
+    {
+        Product created = inventory.addProduct(name, quantity, price);
+        Console.WriteLine($"\nProduct '{created.Name}' added successfully!");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"\nError: {ex.Message}");
+    }
 }
 void HandleEditProduct()
 {
@@ -150,7 +195,7 @@ void HanldeDelete()
 {
     Console.WriteLine("Enter product name you want to delete");
     string nameInput = Console.ReadLine();
-    if (nameInput.Trim() == null)
+    if (string.IsNullOrWhiteSpace(nameInput))
     {
         Console.WriteLine("empty name !");
         return;
@@ -174,7 +219,7 @@ void HandleSerach()
 {
     Console.WriteLine("Enter product name you want to search");
     string nameInput = Console.ReadLine();
-    if (nameInput.Trim() == null)
+    if (string.IsNullOrWhiteSpace(nameInput))
     {
         Console.WriteLine("empty name!");
         return;
