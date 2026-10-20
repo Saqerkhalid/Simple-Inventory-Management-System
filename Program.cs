@@ -83,7 +83,7 @@ void HandleEditProduct()
     }
 
     // 4. Update via Inventory
-    Product Updated = inventory.EditProduct(searchName, finalName, finalQuantity, finalPrice);
+    Product? Updated = inventory.EditProduct(searchName, finalName, finalQuantity, finalPrice);
     if (Updated !=null)
     {
         Console.WriteLine("\nProduct updated successfully!\n"+Updated);
@@ -91,6 +91,30 @@ void HandleEditProduct()
     else
     {
         Console.WriteLine("\nUpdate failed: The new product name already exists in inventory.");
+    }
+}
+void HanldeDelete()
+{
+    Console.WriteLine("Enter product name you want to delete");
+    string nameInput = Console.ReadLine();
+    if (nameInput.Trim() == null)
+    {
+        Console.WriteLine("empty name !");
+        return;
+    }
+    if (inventory.getProductByName(nameInput) == null)
+    {
+        Console.WriteLine("product with this name not found !");
+        return;
+    }
+    bool isDeleted= inventory.DeleteProduct(nameInput);
+    if (isDeleted) {
+        Console.WriteLine("deleted succesfully");
+    }
+    else
+    {
+        Console.WriteLine("error while delete");
+
     }
 }
 Console.WriteLine("Press any key to exit...");
