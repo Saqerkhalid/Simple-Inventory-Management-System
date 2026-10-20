@@ -2,7 +2,7 @@
 
 public class Inventory
 {
-	public List<Product> Products { get;} = new();
+	public readonly List<Product> Products = new();
 	public Inventory()
 	{
 	}
@@ -14,5 +14,9 @@ public class Inventory
         Product newProduct = new Product(name, quantity, price);
         Products.Add(newProduct);
         return newProduct;
+    }
+    public IReadOnlyList<Product> getAllProducts()
+    {
+        return Products.AsReadOnly();
     }
 }
