@@ -5,8 +5,61 @@ inventory.addProduct("iphone", 3, 44);
 inventory.addProduct("camera", 2, 34);
 DisplayAllProducts();
 
+bool isRunning = true;
+while (isRunning)
+{
+    Console.Clear();
+    Console.WriteLine("=====================================");
+    Console.WriteLine("     INVENTORY MANAGEMENT SYSTEM     ");
+    Console.WriteLine("=====================================");
+    Console.WriteLine("1. View All Products");
+    Console.WriteLine("2. Add New Product");
+    Console.WriteLine("3. Edit Product");
+    Console.WriteLine("4. Delete Product");
+    Console.WriteLine("5. Search Product");
+    Console.WriteLine("0. Exit");
+    Console.WriteLine("=====================================");
+    Console.Write("Enter your choice: ");
+    string? choice = Console.ReadLine()?.Trim();
 
-void DisplayAllProducts()
+    Console.WriteLine();
+
+    switch (choice)
+    {
+        case "1":
+            DisplayAllProducts();
+            break;
+
+        case "2":
+            HandleAddProduct();
+            break;
+
+        case "3":
+            HandleEditProduct();
+            break;
+
+        case "4":
+            HanldeDelete();
+            break;
+
+        case "5":
+            HandleSerach();
+            break;
+
+        case "0":
+            Console.WriteLine("Exiting program... Goodbye!");
+            isRunning = false;
+            continue;
+
+        default:
+            Console.WriteLine("Invalid choice! Please select a valid number from the menu.");
+            break;
+    }
+    Console.WriteLine("\nPress any key to return to main menu...");
+    Console.ReadKey();
+}
+
+    void DisplayAllProducts()
 {
     var products= inventory.getAllProducts();
     if(!products.Any())
